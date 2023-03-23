@@ -1,0 +1,17 @@
+.side-bar {
+  display: flex;
+  min-height: 500px;
+  background-color: white;
+  flex-direction: column;
+  padding: 15px;
+  gap: 5px;
+  border-radius: var(--border-radius);
+}
+
+.side-bar-type {
+  background-color: var(--main-color);
+  padding: 5px 10px;
+  margin: 2.5px 0;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
