@@ -1,22 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
-import NavBar from '@/components/navBar'
-import EventsContainer from '@/components/eventsContainer'
-import EventsSideBar from '@/components/eventsSideBar'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
-export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>Create Next App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <NavBar />
-      <main className={styles.main}>
-        <EventsSideBar />
-        <EventsContainer />
-      </main>
-    </>
-  )
+export default function Index() {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.replace('/home');
+  }, [])
+
+  return null
 }
