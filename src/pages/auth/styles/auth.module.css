@@ -1,0 +1,230 @@
+/** main page */
+.auth-page {
+  font-size: 1.25em;
+}
+
+/** form container */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: fit-content;
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  border: 0.5px var(--alt-dark-color) solid;
+  padding: 1rem 2rem;
+  max-width: 20em;
+  gap: 1em;
+}
+
+.auth-form > hr {
+  width: calc(100% - 1em);
+  width: 100%;
+}
+
+/** form title */
+.auth-title {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.auth-title h1 {
+  font-weight: 333;
+}
+
+.auth-title hr {
+  margin-top: 0.5em;
+}
+
+/** side-by-side form input group */
+.double-input {
+  display: flex;
+  width: calc(100% - 0.5em);
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.double-input .input-group {
+  flex-basis: calc(50% - 0.5em);
+  padding: 0;
+}
+
+/** form input group */
+.input-group {
+  position: relative;
+  width: 100%;
+  padding: 0 0.25em;
+}
+
+/** form input */
+.auth-input {
+  box-sizing: border-box;
+  padding: 0.5em;
+  color: var(--dark-color);
+  width: 100%;
+  font-family: inherit;
+  background-color: transparent !important;
+  border: 2px solid var(--main-color);
+  border-radius: var(--border-radius);
+  outline: none;
+  font-size: 0.8em;
+  transition: all 0.3s;
+}
+
+.auth-input::placeholder {
+  color: transparent;
+}
+
+/** override default input/focus/hover styles */
+.auth-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/** override default input/focus/hover styles */
+.auth-input:-webkit-autofill,
+.auth-input:-webkit-autofill:hover,
+.auth-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--dark-color);
+  -webkit-box-shadow: 0 0 0px 1000px var(--main-color) inset;
+  box-shadow: 0 0 0px 1000px var(--light-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.auth-label {
+  display: block;
+  width: fit-content;
+  position: absolute;
+  padding: 0 0.4em;
+  font-weight: inherit;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  transform: translate(0.2em, -1.55em);
+  border-radius: var(--border-radius);
+  transition: all 0.3s;
+}
+
+/** move auth-label to input container's border */
+.auth-input:focus + .auth-label,
+.auth-input:not(:placeholder-shown) + .auth-label {
+  transform: translateY(-2.6em) scale(0.8);
+}
+
+/** popup box showing valid inputes */
+.input-instructions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--event-box-color);
+  color: var(--dark-color);
+  border-radius: var(--border-radius);
+  border: 0.5px var(--main-color) solid;
+  font-size: 0.8em;
+  margin: 0.5rem 0;
+  padding: 0.5em 1em 0.5em 1.5em;
+  width: max-content;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 100;
+}
+
+/** Footer contains submit button */
+.auth-footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.auth-footer span:first-child {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  background-color: var(--light-color);
+}
+
+.auth-footer span:first-child::before {
+  content: "";
+  width: calc(50% - 1em);
+  border: 0.5px var(--main-color) solid;
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+
+.auth-footer span:first-child::after {
+  content: "";
+  width: calc(50% - 1em);
+  border: 0.5px var(--main-color) solid;
+  background: var(--main-color);
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 0.5em);
+  gap: 1em;
+}
+
+/** next-auth provider signin (google, github, etc.) */
+.next-auth {
+  height: 1.75em;
+  width: 1.75em;
+}
+
+/** submit-button */
+.auth-submit {
+  width: 100%;
+  background-color: var(--event-box-color);
+  padding: 0.25em 0;
+  text-align: center;
+  transition: 0.3s ease-in-out;
+}
+
+.auth-submit:hover {
+  background-color: var(--main-color);
+  transform: scale(1.05);
+  transition: 0.3s ease;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+.auth-submit:disabled,
+.auth-submit:disabled:hover {
+  opacity: 0.4;
+  transform: none;
+  transition: none;
+  cursor: default;
+  background-color: var(--alt-light-color);
+  color: var(--dark-color);
+}
+
+.auth-submit:active {
+  transform: scale(95%);
+}
+
+.error-message {
+  padding: 0.5em 1em;
+  background-color: var(--main-color);
+  text-align: center;
+}
+
+.auth-form span {
+  font-size: 0.8em;
+}
+
+.auth-form span a {
+  text-decoration: none;
+  color: gray;
+}
+
+.auth-form span a:hover {
+  color: var(--main-color);
+}
