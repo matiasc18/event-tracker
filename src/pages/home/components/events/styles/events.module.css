@@ -1,0 +1,120 @@
+/** container to hold grid of events */
+.events-grid {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: fit-content;
+  gap: 1em;
+  flex-shrink: 1;
+  align-items: stretch;
+}
+
+/** event that goes into grid */
+.event-box {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 24%;
+  flex-grow: 1;
+  cursor: pointer;
+  pointer-events: all;
+  overflow-x: hidden;
+  color: var(--dark-color);
+  background-color: var(--event-box-color);
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  border: 0.5px var(--alt-dark-color) solid;
+  /* padding: 7.5px; */
+  /* padding-bottom: 0.5em; */
+  transition: transform 0.2s ease-in-out;
+}
+
+/** move upwards on hover */
+.event-box:hover {
+  transform: translateY(-1px);
+}
+
+.event-box:active {
+  background-color: var(--main-hover);
+}
+
+.photo-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9/4;
+  z-index: 25;
+}
+
+.event-photo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  border: 0.5px var(--alt-dark-color) solid;
+}
+
+/** event details inside of event box */
+.event-details-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 0 0.75em 0.75em 0.75em;
+  gap: 0.75em;
+}
+
+.event-details-container:last-child:active hr {
+  border-color: var(--light-color);
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5em;
+}
+
+.event-owner {
+  display: flex;
+  margin-top: 0.75em;
+  color: var(--main-color);
+}
+
+.event-title {
+  font-size: 1.1em;
+  pointer-events: all;
+  font-weight: 333;
+  cursor: pointer;
+  overflow: hidden;
+  max-height: calc(2 * 1.25em);
+  /* limit height to 2 lines */
+  /* display: -webkit-box; */ 
+  /* text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; */
+}
+
+.event-date {
+  font-size: 0.9em;
+  font-weight: 444;
+}
+
+.event-location {
+  font-size: 0.9em;
+}
+
+/** ensure event grid rows with less than 3 */
+/** events has properly sized event boxes */
+.no-grow {
+  flex-basis: 32.6%;
+  flex-grow: 0;
+}
+
+/** media query: small computers */
+@media (max-width: 900px) {
+  .event-details {
+    font-size: 0.8em;
+  }
+}
