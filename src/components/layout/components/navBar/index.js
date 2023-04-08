@@ -6,7 +6,7 @@ import { FiSearch } from 'react-icons/fi'
 import { FaHome } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 // import { ImCog } from 'react-icons/im'
-import { logoutUser } from '@/lib/api'
+import { logoutUser } from '@/lib/api/client/auth'
 import Link from 'next/link'
 
 export default function NavBar() {
