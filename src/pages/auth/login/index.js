@@ -5,7 +5,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { BsGithub } from 'react-icons/bs'
 import Layout from '@/components/layout'
 import { useRouter } from 'next/router'
-import { loginUser } from '@/lib/api'
+import { loginUser } from '@/lib/api/client/auth'
 import Head from 'next/head'
 import Link from 'next/link'
 
