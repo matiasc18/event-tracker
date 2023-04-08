@@ -6,35 +6,30 @@ import styles from '../styles/auth.module.css'
 // import { FcGoogle } from 'react-icons/fc'
 // import { BsGithub } from 'react-icons/bs'
 import Layout from '@/components/layout'
-import { registerUser } from '@/lib/api'
+import { registerUser } from '@/lib/api/client/auth'
 import { useRouter } from 'next/router'
 import { customStyles } from './utils'
-// import Select from 'react-select'
+import Select from 'react-select'
 import Head from 'next/head'
 import Link from 'next/link'
+import { getUniversities } from '@/lib/api/client/unversities'
 
-const options = [
-  { value: 'ucf', label: 'University of Central Florida' },
-  { value: 'uf', label: 'University of Florida' },
-  { value: 'um', label: 'University of Miami' }
-];
-
-export default function Register() {
+export default function Register({ universities }) {
   // Input state
   // TODO make one object with all the members
-  const [university, setUniversity] = useState('');
+  const [university, setUniversity] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); // Unsuccessful login message
-  
+
   const { accessLoginStatus } = useAuth();
   const router = useRouter();
 
   // For setting focus on first input
-  const firstNameRef = useRef(); 
+  const firstNameRef = useRef();
   const [focus, setFocus] = useState(null);
 
   // Scroll to top and set focus on firstName input
@@ -79,6 +74,10 @@ export default function Register() {
       router.push('/home');
     }
 
+    useEffect(() => {
+      console.log(university);
+    }, [university]);
+
   };
   return (
     <Layout>
@@ -90,9 +89,9 @@ export default function Register() {
           <div className={styles['auth-title']}>
             <h1>Register</h1>
           </div>
-          {/* <div className={styles['input-group']}>
-            <Select styles={customStyles} options={options} isSearchable={true} placeholder="Select university..." />
-          </div> */}
+          <div className={styles['input-group']}>
+            <Select styles={customStyles} value={university} options={universities} onChange={(selection) => setUniversity(selection)} isSearchable={true} placeholder="Select university..." />
+          </div>
           <hr />
           <div className={styles['double-input']}>
             <div className={styles['input-group']}>
@@ -186,3 +185,16 @@ export default function Register() {
     </Layout>
   )
 };
+
+export async function getServerSideProps() {
+  const { universities } = await getUniversities();
+  const options = universities.map((univ) => {
+    return { value: univ.univ_id, label: univ.name };
+  });
+
+  return {
+    props: {
+      universities: options
+    }
+  }
+}
