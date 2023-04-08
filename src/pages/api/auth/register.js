@@ -1,36 +1,30 @@
 import bcrypt from 'bcrypt'
 import { sign } from 'jsonwebtoken'
-import createConnection from '@/lib/db'
+import connection from '@/lib/db'
 import Cookies from 'js-cookie'
 
-// Register user into database
+// /api/auth/register
 export default async function handler(req, res) {
-  const connection = await createConnection();
-
+  // Register user into database
   if (req.method === 'POST') {
     try {
-      const { univ_id, first_name, last_name, email, password, role } = req.body;
+      const { universityName, firstName, lastName, email, password, role } = req.body;
 
-      // Hash user's password
+      // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Create SQL query
-      const query = "INSERT INTO user (univ_id, first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
-      const values = [univ_id, first_name, last_name, email, hashedPassword, role];
+      const query = "INSERT INTO user (univ_id, first_name, last_name, email, password, role) VALUES ((SELECT univ_id FROM university U WHERE U.name = ?), ?, ?, ?, ?, ?);";
+      const values = [universityName, firstName, lastName, email, hashedPassword, role];
 
-      // Execute query
-      const [rows] = await connection.execute(query, values);
+      const result = await connection.execute(query, values);
       const createdUser = {
-        first_name,
-        last_name,
-        email,
-        role
+        universityName,
+        name: `${firstName} ${lastName}`,
+        email
       };
 
-      // Create and sign JWT token with user id
-      const token = sign({ user_id: rows.insertId }, process.env.JWT_SECRET);
-
-      // Set token as a cookie in the response header
+      // Create and sign JWT token with user id, set it as a cookie in response header
+      const token = sign({ user_id: result[0].insertId, role: role }, process.env.JWT_SECRET);
       Cookies.set('authToken', token, {
         maxAge: 60 * 60 * 24 * 7, // 1 week
         path: '/',
@@ -43,7 +37,7 @@ export default async function handler(req, res) {
         .setHeader('Set-Cookie', Cookies.get('authToken'))
         .json({ message: 'User created', user: createdUser, authToken: token });
     } catch (error) {
-      return res.status(400).json({ message: 'Registration failed', error: error.message });
+      return res.status(400).json({ message: 'Registration failed', error: error?.response?.message || error?.message });
     }
   }
 }
