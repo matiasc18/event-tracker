@@ -1,4 +1,4 @@
-import styles from './styles/events-control.module.css'
+import styles from './styles/events-control.module.scss'
 
 // Display event grid control options
 export default function EventControl({ title }) {
@@ -6,8 +6,8 @@ export default function EventControl({ title }) {
     <div className={styles['events-control']}>
       <h1>{title}</h1>
       <div className={styles['button-container']}>
-        <button className={styles['control-button']}>Sort</button>
-        <button className={styles['control-button']}>Filter</button>
+        <button>Sort</button>
+        <button>Filter</button>
       </div>
     </div>
   )
