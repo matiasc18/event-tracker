@@ -8,21 +8,28 @@ export default async function handler(req, res) {
   // Register user into database
   if (req.method === 'POST') {
     try {
-      const { universityName, firstName, lastName, email, password, role } = req.body;
+      const { univId, firstName, lastName, email, password, role } = req.body;
+
+      // Sanitize role input
+      if (role != 'student' && role != 'admin' && role != 'superadmin') {
+        return res.status(400).json({ message: 'Registration failed', error: 'Invalid role'});
+      }
 
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
+      const query = (role == 'student') ? 'INSERT INTO USER (univ_id, first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?, ?);' : 'INSERT INTO USER (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?);';
+      const values = [firstName, lastName, email, hashedPassword, role];
+      const finalValues = (role == 'student') ? [univId, ...values] : [...values];
 
-      const query = "INSERT INTO user (univ_id, first_name, last_name, email, password, role) VALUES ((SELECT univ_id FROM university U WHERE U.name = ?), ?, ?, ?, ?, ?);";
-      const values = [universityName, firstName, lastName, email, hashedPassword, role];
-
-      const result = await connection.execute(query, values);
-      const createdUser = {
-        universityName,
+      const result = await connection.execute(query, finalValues);
+      const createdUser = (role == 'student') ? {
+        univId,
+        name: `${firstName} ${lastName}`,
+        email
+      } : {
         name: `${firstName} ${lastName}`,
         email
       };
-
       // Create and sign JWT token with user id, set it as a cookie in response header
       const token = sign({ user_id: result[0].insertId, role: role }, process.env.JWT_SECRET);
       Cookies.set('authToken', token, {
@@ -37,6 +44,7 @@ export default async function handler(req, res) {
         .setHeader('Set-Cookie', Cookies.get('authToken'))
         .json({ message: 'User created', user: createdUser, authToken: token });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({ message: 'Registration failed', error: error?.response?.message || error?.message });
     }
   }
