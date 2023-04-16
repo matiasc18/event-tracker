@@ -4,30 +4,15 @@ import { isLoggedIn } from '@/utils/auth';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [loginStatus, setLoginStatus] = useState(() => isLoggedIn());
+  const initialStatus = isLoggedIn();
+  const [loginStatus, setLoginStatus] = useState(initialStatus);
 
-  // Access login status in different modes
-  const accessLoginStatus = (mode, newStatus) => {
-    // Get current status
-    if (mode === 'get') {
-      return loginStatus;
-    }
-    // Update and return status
-    else if (mode === 'update') {
-      const status = isLoggedIn();
-      setLoginStatus(status);
-      return status;
-    }
-    // Manually set status
-    else if (mode === 'set') {
-      setLoginStatus(newStatus);
-      return newStatus;
-    }
-    else null;
+  const updateLoginStatus = (newStatus) => {
+    setLoginStatus(newStatus);
   }
 
   return (
-    <AuthContext.Provider value={{ accessLoginStatus }}>
+    <AuthContext.Provider value={{ loginStatus, updateLoginStatus }}>
       {children}
     </AuthContext.Provider>
   )
