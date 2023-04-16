@@ -1,0 +1,121 @@
+@use "../../../styles/config" as *;
+
+/** container to hold grid of events */
+.events-grid {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: fit-content;
+  gap: 1em;
+  flex-shrink: 1;
+  align-items: stretch;
+}
+
+/** event that goes into grid */
+.event-box {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 24%;
+  flex-grow: 1;
+  cursor: pointer;
+  pointer-events: all;
+  overflow-x: hidden;
+  color: $dark-color;
+  background-color: $event-box-color;
+  background-color: $light-color;
+  border-radius: $border-radius;
+  border: 0.5px $alt-dark-color solid;
+  /* padding: 7.5px; */
+  /* padding-bottom: 0.5em; */
+}
+
+/** event details inside of event box */
+.event-details-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 0 0.75em 0.75em 0.75em;
+  gap: 0.75em;
+
+  .event-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25em;
+
+    .event-type {
+      display: flex;
+      margin: 0.5em 0 0.25em 0;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 1em;
+        font-weight: 333;
+      }
+
+      /* h3:last-child {
+        border: 1px solid $main-color;
+        padding: 0.25em 0.5em;
+        color: $light-color;
+        border-radius: $border-radius;
+        background-color: $main-color;
+        position: relative;
+        font-weight: 444;
+      } */
+    }
+
+    .event-title {
+      font-size: 1.25em;
+      pointer-events: all;
+      font-weight: 444;
+      cursor: pointer;
+      overflow: hidden;
+      max-height: calc(2 * 1.25em);
+    }
+
+    .event-date,
+    .event-location {
+      display: flex;
+      align-items: center;
+      gap: 0.25em;
+      font-size: 0.9em;
+    }
+
+    .logo {
+      font-size: 1em;
+    }
+  }
+}
+
+.event-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  .event-category {
+    width: fit-content;
+    font-size: 0.8em;
+    border: 1px solid $main-color;
+    padding: 0.25em 0.5em;
+    /* color: $light-color; */
+    border-radius: $border-radius;
+    /* background-color: $main-color; */
+  }
+}
+
+/** ensure event grid rows with less than 3 */
+/** events has properly sized event boxes */
+.no-grow {
+  flex-basis: 32.6%;
+  flex-grow: 0;
+}
+
+/** media query: small computers */
+@media (max-width: 900px) {
+  .event-details {
+    font-size: 0.8em;
+  }
+}

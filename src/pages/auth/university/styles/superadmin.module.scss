@@ -1,0 +1,93 @@
+@use "../../../../styles/config" as *;
+@import "../../styles/auth.module.scss";
+
+.auth-page {
+  @extend .auth-page;
+}
+
+.auth-form {
+  @extend .auth-form;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  width: 100%;
+  max-width: 45em;
+
+  hr {
+    border-color: $dark-color;
+  }
+}
+
+.superadmin-container {
+  @extend .auth-form;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 0;
+  padding: 1rem 0;
+  border: none;
+
+  .superadmin-left,
+  .superadmin-right {
+    @extend .register-container;
+    padding: 0;
+    width: initial;
+    flex: 1;
+  }
+  
+  .superadmin-left {
+    position: relative;
+    flex-basis: 60%;
+
+    &::after {
+      position: absolute;
+      content: "";
+      height: calc(100% - 2rem);
+      top: 1rem;
+      right: -1rem;
+      border: 0.5px solid $dark-color;
+    }
+  }
+
+  .superadmin-right {
+    flex-basis: 40%;
+
+  }
+
+  textarea {
+    resize: none;
+    height: 100%;
+    
+    &::placeholder {
+      font-size: 1.25em;
+      font-weight: 333 !important;
+      color: $dark-color !important;
+    }
+  }
+}
+
+.auth-title {
+  @extend .auth-title;
+}
+
+.input-group {
+  @extend .input-group;
+}
+
+.description-input {
+  flex-grow: 1;
+}
+
+.auth-input {
+  @extend .auth-input;
+}
+
+
+.submit-container {
+  @extend .submit-container;
+  max-width: 20em;
+  align-self: center;
+}
+
+.auth-submit {
+  @extend .auth-submit;
+}

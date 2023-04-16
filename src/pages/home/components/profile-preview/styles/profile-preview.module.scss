@@ -1,0 +1,58 @@
+@use "../../../../../styles/config" as *;
+
+.profile-snippet {
+  flex-basis: 25%;
+  height: fit-content;
+  background-color: $light-color;
+  border-radius: $border-radius;
+  border: 0.9px $alt-dark-color solid;
+  padding: 10px 15px 15px 15px;
+  flex-grow: 1;
+
+  > h1 {
+    align-self: center;
+    font-weight: 333;
+    color: $dark-color;
+    border-radius: $border-radius;
+  }
+
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-icon {
+    width: 75px;
+    height: 75px;
+    color: $main-color;
+  }
+  
+  .profile-name {
+    margin-top: 0.5em;
+  }
+  
+  .profile-uni {
+    width: fit-content;
+    text-align: center;
+    font-size: 0.8em;
+    margin-top: 0.25em;
+    margin-bottom: 0.75em;
+  }
+  
+  .rso-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.25em 0;
+  }
+}
+
+
+
+@media (max-width: 900px) {
+  .profile-snippet {
+    visibility: hidden;
+    display: none;
+  }
+}

@@ -1,0 +1,37 @@
+@use "../../../styles/config" as *;
+
+/** SideBar container */
+.side-bar {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: fit-content;
+  background-color: $light-color;
+  border-radius: $border-radius;
+  border: 0.5px $alt-dark-color solid;
+  padding: 0.5em 1em 1em 1em;
+
+  .side-bar-title {
+    align-self: center;
+    color: $dark-color;
+    border-radius: $border-radius;
+    font-weight: 333;
+  }
+
+  .type-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    width: 100%;
+    color: $light-color;
+    border-radius: $border-radius;
+  
+    hr {
+      margin: 0.25em 0;
+    }
+
+    .selected {
+      background-color: $main-color;
+    }
+  }
+}
