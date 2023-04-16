@@ -12,7 +12,7 @@ async function getUniversities() {
 }
 
 // Get unversity superadmin name
-async function getUniversityAdmin() {
+async function getUniversityAdmin(data) {
   try {
     const response = await axiosInstance.get(`/universities/${data}/getAdmin`);
 
@@ -23,13 +23,15 @@ async function getUniversityAdmin() {
 }
 
 // Create new university
-async function createUniversity(data) {
+async function createUniversity(data, authToken) {
   try {
-    const response = await axiosInstance.post('/universities/admin/createUniversity', data)
+    const response = await axiosInstance.post('/superadmin/university/create', data, {
+      headers: { Authorization: `Bearer ${authToken}` }
+    });
 
-    return response.data;
+    return response;
   } catch (error) {
-    return { error: error };
+    return error?.response;
   }
 }
 
