@@ -19,7 +19,7 @@ const verifyRsoMember = (handler) => async (req, res) => {
     // Determine if user is a member in the RSO
     try {
       const userId = decodedToken.user_id;
-      const query = 'SELECT member_id, rso_id FROM rso_member WHERE rso_id = ?;';
+      const query = 'SELECT member_id FROM rso_member WHERE rso_id = ?;';
       const values = [req.query.rsoId];
       const [result] = await connection.execute(query, values);
 

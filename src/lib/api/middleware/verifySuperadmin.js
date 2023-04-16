@@ -1,4 +1,4 @@
-import { isUnivRegistered } from '../../db'
+import { isSuperadmin, isUnivRegistered } from '../../db'
 import jwt from 'jsonwebtoken'
 import connection from '../../db'
 
