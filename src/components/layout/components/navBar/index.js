@@ -1,32 +1,45 @@
-import styles from './styles/nav_bar.module.css'
+import { getUserUniversity, logoutUser } from '@/lib/api/client/auth'
+import styles from './styles/nav_bar.module.scss'
 import { useAuth } from '@/contexts/AuthContext'
-// import { TbBrandNextjs } from 'react-icons/tb'
 import { useEffect, useState } from 'react'
+import { getAuthToken } from '@/utils/auth'
 import { FiSearch } from 'react-icons/fi'
 import { FaHome } from 'react-icons/fa'
 import { useRouter } from 'next/router'
-// import { ImCog } from 'react-icons/im'
-import { logoutUser } from '@/lib/api/client/auth'
 import Link from 'next/link'
 
+// Logout user and set login status to false
+const handleLogout = (updateLoginStatus, router) => {
+  logoutUser();
+  updateLoginStatus(false);
+  router.reload();
+};
+
+// Gets user's university name and abbreviation
+const getUniversity = async (setUniversity) => {
+  const authToken = getAuthToken();
+  if (!!authToken) {
+    const userUniv = await getUserUniversity(authToken);
+    setUniversity(userUniv);
+  }
+}
+
 export default function NavBar() {
-  // Set initial login status to false
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  
-  const { accessLoginStatus } = useAuth();
   const router = useRouter();
+
+  // Set initial login status to false
+  const { updateLoginStatus, loginStatus } = useAuth();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [university, setUniversity] = useState({});
 
   // Get login status once hydrated
   useEffect(() => {
-    setIsSignedIn(accessLoginStatus('get', null));
-  }, []);
+    setIsSignedIn(loginStatus);
 
-  // Logout user and set login status to false
-  function handleLogout(e) {
-    logoutUser();
-    accessLoginStatus('set', false);
-    setIsSignedIn(false);
-  }
+    // Get user's university if they are logged in
+    if (loginStatus)
+      getUniversity(setUniversity);
+  }, [loginStatus]);
 
   return (
     <div className={styles['nav-container']}>
@@ -40,9 +53,9 @@ export default function NavBar() {
         <div className={styles['nav-control']}>
           {isSignedIn &&
             <>
-              <span href="" className={styles['nav-button']}>University name</span>
+              {university && <span href="" className={styles['nav-button']}>{university.abbreviation}</span>}
               <span href="" className={styles['nav-button']}>Create</span>
-              <span href="" className={styles['nav-button']} onClick={(e) => handleLogout(e)} >Logout</span>
+              <span href="" className={styles['nav-button']} onClick={() => handleLogout(updateLoginStatus, router)} >Logout</span>
             </>
           }
           {!isSignedIn && <Link href="/auth/login" className={styles['nav-button']}>Sign in</Link>}
