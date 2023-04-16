@@ -1,7 +1,7 @@
 import connection from '@/lib/db'
 import verifyAdmin from '@/lib/api/middleware/verifyAdmin'
 
-// /api/admin/deleteEvent/:eventId
+// /api/admin/events/:eventId/delete
 async function handler(req, res) {
   // Delete event
   if (req.method === 'DELETE') {

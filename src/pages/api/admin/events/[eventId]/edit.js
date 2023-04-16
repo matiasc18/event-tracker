@@ -2,7 +2,7 @@ import connection from '@/lib/db'
 import { buildEditQuery } from '@/utils/utils';
 import verifyAdmin from '@/lib/api/middleware/verifyAdmin'
 
-// /api/admin/editEvent/:eventId
+// /api/admin/events/:eventId/edit
 async function handler(req, res) {
   // Edit event details
   if (req.method === 'PUT') {

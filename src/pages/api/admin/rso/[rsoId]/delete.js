@@ -1,7 +1,7 @@
 import connection from '@/lib/db'
 import verifyAdmin from '@/lib/api/middleware/verifyAdmin'
 
-// /api/admin/deleteRso/:rsoId
+// /api/admin/rso/:rsoId/delete
 async function handler(req, res) {
   // Delete rso
   if (req.method === 'DELETE') {

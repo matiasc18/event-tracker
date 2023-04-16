@@ -1,7 +1,7 @@
 import connection from '@/lib/db'
 import verifyAdmin from '@/lib/api/middleware/verifyAdmin'
 
-// /api/admin/requestEvent/:eventId
+// /api/admin/events/:eventId/request
 async function handler(req, res) {
   // Request public event
   if (req.method === 'POST') {

@@ -1,7 +1,7 @@
 import connection from '@/lib/db'
 import verifyAdmin from '@/lib/api/middleware/verifyAdmin'
 
-// /api/admin/cancelRequest/:eventId
+// /api/admin/events/:eventId/cancel-request
 async function handler(req, res) {
   // Remove public event request
   if (req.method === 'DELETE') {
